@@ -30,26 +30,31 @@ object NextGreaterElement {
   }
 
   def nextGreaterElement(nums1: Array[Int], nums2: Array[Int]): Array[Int] = {
-    val elementStack = scala.collection.mutable.Stack[Int]()
-    var nextGreaterElementMap = Map[Int,Int]()
-    elementStack.push(nums2(0))
-    for(i <-1 to nums2.length-1){
-      val next = nums2(i)
-      while(!elementStack.isEmpty && elementStack.top < next){
-        val top = elementStack.pop()
-        if(next > top){
-          nextGreaterElementMap += top -> next
+    if(nums2.length > 0){
+      val elementStack = scala.collection.mutable.Stack[Int]()
+      var nextGreaterElementMap = Map[Int,Int]()
+      elementStack.push(nums2(0))
+      for(i <-1 to nums2.length-1){
+        val next = nums2(i)
+        while(!elementStack.isEmpty && elementStack.top < next){
+          val top = elementStack.pop()
+          if(next > top){
+            nextGreaterElementMap += top -> next
+          }
         }
+        elementStack.push(next)
       }
-      elementStack.push(next)
+      while(!elementStack.isEmpty){
+        nextGreaterElementMap += elementStack.pop() -> -1
+      }
+      val output = new Array[Int](nums1.length)
+      for(num <- nums1.zipWithIndex){
+        output(num._2) = nextGreaterElementMap(num._1)
+      }
+      output
+    }else{
+      Array.fill(nums1.length){-1}
     }
-    while(!elementStack.isEmpty){
-      nextGreaterElementMap += elementStack.pop() -> -1
-    }
-    val output = new Array[Int](nums1.length)
-    for(num <- nums1.zipWithIndex){
-      output(num._2) = nextGreaterElementMap(num._1)
-    }
-    output
+
   }
 }
