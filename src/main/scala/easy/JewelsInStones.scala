@@ -1,3 +1,5 @@
+package easy
+
 object JewelsInStones {
   def main(args: Array[String]): Unit = {
     val numJewels = numJewelsInStones(args(0), args(1))

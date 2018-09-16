@@ -1,3 +1,5 @@
+package easy
+
 import scala.collection.mutable.ListBuffer
 
 object ToLowerCase {
