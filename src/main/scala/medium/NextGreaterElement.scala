@@ -26,6 +26,7 @@ package medium
 object NextGreaterElement {
   def main(args: Array[String]): Unit = {
     nextGreaterElement(Array(4,5), Array(4,5,25)).foreach(println(_))
+    nextGreaterElement(Array(4,5), Array()).foreach(println(_))
 
   }
 
