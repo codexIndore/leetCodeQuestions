@@ -17,12 +17,31 @@ class TwoSum {
     }
     output
   }
+
+  /**
+   * Use the hash table to figure out the indexes of numbers that adds up to the target
+   * @param nums
+   * @param target
+   * @return
+   */
+  def getSumWithMap(nums: Array[Int], target: Int): Array[Int] = {
+    val numsMap = scala.collection.mutable.HashMap[Int, Int]()
+    for((num, index) <- nums.zipWithIndex){
+      val complement = target - num
+      if(numsMap.contains(complement)){
+        return Array(index, numsMap.get(complement).get)
+      }else{
+        numsMap += (num -> index)
+      }
+    }
+    throw new IllegalStateException("no two numbers present that can add up to target:" + target)
+  }
 }
 
 object TwoSum{
   def main(args: Array[String]): Unit = {
     val example = Array(1,5,7,3,4)
     val twoSum = new TwoSum
-    print(twoSum.getSum(example, 9).mkString(","))
+    print(twoSum.getSumWithMap(example, 9).mkString(","))
   }
 }
